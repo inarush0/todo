@@ -1,6 +1,7 @@
 package main
 
 import (
+	"encoding/json"
 	"fmt"
 	"log"
 	"net/http"
@@ -22,7 +23,12 @@ func index(w http.ResponseWriter, r *http.Request) {
 }
 
 func toDoIndex(w http.ResponseWriter, r *http.Request) {
-	fmt.Fprintln(w, "Todo Index!")
+	todos := ToDos{
+		ToDo{Name: "Write presentation"},
+		ToDo{Name: "Host meetup"},
+	}
+
+	json.NewEncoder(w).Encode(todos)
 }
 
 func toDoShow(w http.ResponseWriter, r *http.Request) {
